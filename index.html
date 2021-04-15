@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>KityMinder Editor - Powered By FEX</title>
+    <title>KityMinder Editor Lite</title>
 
 	<link href="favicon.ico" type="image/x-icon" rel="shortcut icon">
 
@@ -23,21 +23,9 @@
             height: 100%;
             overflow: hidden;
         }
-        h1.editor-title {
-            background: #393F4F;
-            color: white;
-            margin: 0;
-            height: 40px;
-            font-size: 14px;
-            line-height: 40px;
-            font-family: 'Hiragino Sans GB', 'Arial', 'Microsoft Yahei';
-            font-weight: normal;
-            padding: 0 20px;
-        }
     </style>
 </head>
 <body ng-app="kityminderDemo" ng-controller="MainController">
-    <h1 class="editor-title">KityMinder Editor - Powered By FEX</h1>
     <kityminder-editor on-init="initEditor(editor, minder)"></kityminder-editor>
 </body>
 
@@ -104,7 +92,6 @@
 <script src="ui/directive/searchBox/searchBox.directive.js"></script>
 <script src="ui/directive/searchBtn/searchBtn.directive.js"></script>
 
-
 <script>
 	angular.module('kityminderDemo', ['kityminderEditor'])
 			.controller('MainController', function($scope) {
@@ -114,6 +101,44 @@
 				};
 			});
 
+    window.initEditor = function () {
+        console.log('mindEditor.initEditor');
+        if (!editor) {
+            setTimeout(function () {
+                window.initEditor();
+            }, 100);
+            return;
+        }
+        editor.minder.on("contentchange", function(e){
+            console.log('mindEditor.editor.content.change');
+            window.doEditorUpdate();
+        });
+    };
+    window.getEditorContent = function () {
+        console.log('mindEditor.getEditorContent');
+        if (!editor) {
+            return null;
+        }
+        return JSON.stringify(editor.minder.exportJson());
+    };
+    window.setEditorContent = function (content) {
+        console.log('mindEditor.setEditorContent', content);
+        if (!editor) {
+            return;
+        }
+        var json
+        try {
+            json = JSON.parse(content);
+        } catch (e) {
+            json = {
+                "root": {
+                    "data": {"id": "byjpgvuzvv40", "created": 1574149619332, "text": "中心主题"},
+                    "children": []
+                }, "template": "default", "theme": "fresh-blue", "version": "1.4.43"
+            };
+        }
+        editor.minder.importJson(json);
+    };
 </script>
 
 </html>

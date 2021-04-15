@@ -1,5 +1,5 @@
 {
-  "name": "kityminder-editor",
+  "name": "KityMinder Editor Lite",
   "version": "1.0.67",
   "description": "A powerful mind map editor",
   "main": "kityminder.editor.js",
@@ -48,6 +48,9 @@
     "uglify-js": "^2.8.29"
   },
   "dependencies": {
+    "gulp-concat": "^2.6.1",
+    "gulp-mini-css": "0.0.3",
+    "gulp-uglify": "^3.0.2",
     "kityminder-core": "^1.4.50"
   },
   "config": {
