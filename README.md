@@ -1,6 +1,4 @@
-KityMinder Editor Lite
-
-==========
+# KityMinder Editor Lite
 
 ## 简介
 
